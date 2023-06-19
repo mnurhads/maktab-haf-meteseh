@@ -1,0 +1,15 @@
+{
+    "name": "nurha/maktab-haf",
+    "autoload": {
+        "psr-4": {
+            "Nurha\\MaktabHaf\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mnurhad",
+            "email": "nurhadi@nominavipindonesia.com"
+        }
+    ],
+    "require": {}
+}
