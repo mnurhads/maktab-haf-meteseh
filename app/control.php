@@ -14,7 +14,8 @@ require_once 'security.php';
 
 class model extends Security {
     function get_app() {
-        $nameApp = "BOOKINGIN";
+        $nameApp = "Info Maktab HAF Meteseh";
+        
         return $nameApp;
     }
  
@@ -22,5 +23,11 @@ class model extends Security {
        $ver = "Version 1.0";
  
        return $ver;
+    }
+
+    function baseUrl() {
+        $base = "http://localhost/maktab-haf";
+
+        return $base;
     }
 }
