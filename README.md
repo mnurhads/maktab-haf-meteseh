@@ -4,10 +4,12 @@
 
 ```bash
 # Description
-Sistem pencarian data maktab untuk jama'ah dari berbagai kota, diharapkan dengan sistem ini para jama'ah tidak bingung dalam mendapatkan informasi maktab sesuai dari data yang didaftarkan dipanitia.
+Sistem pencarian data maktab untuk jama'ah dari berbagai kota, diharapkan dengan sistem ini para jama'ah 
+mendapatkan informasi maktab sesuai dari data yang didaftarkan dipanitia.
 
 ```
 
 ## Authors
 
 * **Muhammad Nurhadi** - *Software Engineer* - [mnurhads](https://github.com/mnurhads).
+* **Support UCC Jateng.**
