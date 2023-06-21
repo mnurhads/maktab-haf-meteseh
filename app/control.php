@@ -3,7 +3,7 @@ date_default_timezone_set("Asia/Jakarta");
 /**
  * The font metrics class
  *
- * Global function system app booking
+ * Global function system maktab
  * 
  * powered by Muhammad Nur Hadi
  * 
@@ -349,6 +349,36 @@ class model extends Security {
                     <h4><i class="icon fa fa-ban"></i> Warning!</h4>
                     Maktab gagal dihapus
                   </div>';
+        }
+    }
+
+    function updateProfil($profil) {
+        $userId   = $this->clean_post($profil['userId']);
+        $username = $this->clean_post($profil['username']);
+        $email    = $this->clean_post($profil['email']);
+        $pass     = $this->clean_post($profil['password']);
+        $konfirm  = $this->clean_post($profil['konfirm']);
+        
+        if($pass == $konfirm) {
+            $password = md5($pass);
+            $query    = $this->query("UPDATE users SET username = '$username', email = '$email', password = '$password' WHERE id = '$userId'");
+
+            if($query) {
+                echo "<script>alert('Maktab berhadil dihapus') 
+                            location.replace('../profil/')</script>";
+            } else {
+                echo '<div class="alert alert-danger alert-dismissible">
+                        <a type="button" class="close text-white" data-dismiss="alert" aria-hidden="true"><span class="mdi mdi-cancel"></span></a>
+                        <h4><i class="icon fa fa-ban"></i> Warning!</h4>
+                        Profil gagal dihapus
+                      </div>';
+            }
+        } else {
+            echo '<div class="alert alert-danger alert-dismissible">
+                    <a type="button" class="close text-white" data-dismiss="alert" aria-hidden="true"><span class="mdi mdi-cancel"></span></a>
+                    <h4><i class="icon fa fa-ban"></i> Warning!</h4>
+                    Password yang anda masukkan tidak sama
+                </div>';
         }
     }
 }
