@@ -4,7 +4,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="footer-copy-right">
                     <p>Copyright © 2023 
-. All rights reserved. Design By Copler Tech.</p>
+. All rights reserved. Design By Copler Jateng.</p>
                 </div>
             </div>
         </div>
