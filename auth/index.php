@@ -2,6 +2,12 @@
 require_once '../app/control.php';
 $log = new Model();
 
+if(isset($_POST['login'])) {
+  $login['username'] = $_POST['username'];
+  $login['password'] = $_POST['password'];
+
+  $log->loginWeb($login);
+}
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -59,7 +65,6 @@ $log = new Model();
     <!-- Content Icon New -->
     <script src="https://kit.fontawesome.com/de5e2ca05e.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
     <div class="login-content">
         <!-- Login -->
@@ -67,9 +72,6 @@ $log = new Model();
             <form action="" method="POST">
                 <div class="nk-form">
                     <img src="<?= $log->baseUrl(); ?>/assets/img/khidmah.png" alt="Logo Perusahaan" width="120px"><br><br>
-                     <!-- Msg Error -->
-
-                    <!-- End Msg Error -->
                     <div class="input-group">
                         <span class="input-group-addon nk-ic-st-pro"><i class="fa fa-envelope"></i></span>
                         <div class="nk-int-st">
@@ -85,7 +87,7 @@ $log = new Model();
                     <div class="fm-checkbox">
                         <!-- <a href="" class="btn btn-primary">Reset Password</a> -->
                     </div>
-                    <button type="submit" class="btn btn-login btn-danger btn-float"><i class="notika-icon notika-right-arrow right-arrow-ant"></i></button>
+                    <button name="login" type="submit" class="btn btn-login btn-danger btn-float"><i class="notika-icon notika-right-arrow right-arrow-ant"></i></button>
                 </div>
             </form>
         </div>

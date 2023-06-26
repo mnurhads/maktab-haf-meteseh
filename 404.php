@@ -1,3 +1,8 @@
+<?php
+require_once 'app/control.php';
+$log = new Model();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,10 +10,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
 	<title>404 | Maktab HAF 2023</title>
-
+    <link rel="shortcut icon" type="image/x-icon" href="<?= $log->baseUrl(); ?>/assets/img/favicon.ico">
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
@@ -186,6 +189,9 @@
 <body>
 	<div id="notfound">
 		<div class="notfound">
+            <div align="center">
+                <img src="<?= $log->baseUrl(); ?>/assets/img/khidmah.png" width="125px" alt="logo Alkhidmah">
+            </div>
 			<div class="notfound-404">
 				<h1>4<span>0</span>4</h1>
 			</div>

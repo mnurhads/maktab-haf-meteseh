@@ -93,15 +93,70 @@ class model extends Security {
         }
       
          return $token;
-       }
+    }
+
+    function base64url_encode($str) {
+        return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
+    }
+
+
+    function generate_jwt($headers, $payload, $secret = 'secret') {
+        $headers_encoded = $this->base64url_encode(json_encode($headers));
+        
+        $payload_encoded = $this->base64url_encode(json_encode($payload));
+        
+        $signature = hash_hmac('SHA256', "$headers_encoded.$payload_encoded", $secret, true);
+        $signature_encoded = $this->base64url_encode($signature);
+        
+        $jwt = "$headers_encoded.$payload_encoded.$signature_encoded";
+        
+        return $jwt;
+    }
+
+    
+    function is_jwt_valid($jwt, $secret = 'secret') {
+        // split the jwt
+        $tokenParts = explode('.', $jwt);
+        $header = base64_decode($tokenParts[0]);
+        $payload = base64_decode($tokenParts[1]);
+        $signature_provided = $tokenParts[2];
+
+        // check the expiration time - note this will cause an error if there is no 'exp' claim in the jwt
+        $expiration = json_decode($payload)->exp;
+        $is_token_expired = ($expiration - time()) < 0;
+
+        // build a signature based on the header and payload using the secret
+        $base64_url_header = $this->base64url_encode($header);
+        $base64_url_payload = $this->base64url_encode($payload);
+        $signature = hash_hmac('SHA256', $base64_url_header . "." . $base64_url_payload, $secret, true);
+        $base64_url_signature = $this->base64url_encode($signature);
+
+        // verify it matches the signature provided in the jwt
+        $is_signature_valid = ($base64_url_signature === $signature_provided);
+        
+        if ($is_token_expired || !$is_signature_valid) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    // END 
 
     function loginWeb($login) {
-        $mail    = $this->clean_post($logIn["username"]);
-        $pass    = $this->clean_post(md5($logIn["password"]));
+        $mail    = $this->clean_post($login["username"]);
+        $pass    = $this->clean_post(md5($login["password"]));
         $ip      = $_SERVER['REMOTE_ADDR'];
         $browser = $_SERVER['HTTP_USER_AGENT'];
         $dateNow = date("Y-m-d H:i:s");
         $token   = $this->get_token(50);
+
+        // proses JWT create token
+        $headers = array('alg'=>'HS256','typ'=>'JWT');
+        $payload = array('sub'=>'1234567890', 'name'=> $mail, 'admin'=> true, 'exp'=>(time() + 60));
+
+        $jwt = $this->generate_jwt($headers, $payload);
+        // end
 
         $query = $this->query("SELECT * FROM users WHERE username = '$mail' AND password = '$pass'");
 
@@ -110,18 +165,18 @@ class model extends Security {
             $userId = $users["id"];
             $nama   = $users["username"];
 
-            $query = $this->query("UPDATE users SET login_token = '$token', login_time = '$dateNow', ip_position = '$ip', default_browser = '$browser' WHERE username = '$mail'");
+            $query = $this->query("UPDATE users SET login_token = '$token', jwt_token = '$jwt', login_time = '$dateNow', ip_position = '$ip', default_browser = '$browser' WHERE username = '$mail'");
                 
             $_SESSION["user_id"]          = $users["id"];
             $_SESSION["username"]  		  = $users["username"];
-            $_SESSION["fullname"]         = $users["fullname"];
+            //$_SESSION["fullname"]         = $users["fullname"];
             $_SESSION["email"]		      = $users["email"];
             $_SESSION["status"]		      = $users["status"];
 
             if($users["status"] === "AKTIF") {
                 if($users["level"] === "ADMIN") {
                     echo "<script>alert('Selamat datang,anda login sebagai Administrator') 
-                    location.replace('../admin/home')</script>";
+                    location.replace('../admin/dash')</script>";
                 } else {
                      echo '<div class="alert alert-danger alert-dismissible">
                     <a type="button" class="close text-white" data-dismiss="alert" aria-hidden="true"><span class="mdi mdi-cancel"></span></a>
