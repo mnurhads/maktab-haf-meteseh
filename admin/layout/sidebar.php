@@ -7,24 +7,29 @@
                         <ul class="mobile-menu-nav">
                             <li><a data-toggle="collapse" data-target="#Charts" href="#">Home</a>
                                 <ul class="collapse dropdown-header-top">
-                                    <li><a href="index.html">Dashboard</a></li>
+                                    <li><a href="<?= $log->baseUrl() ?>/admin/dash">Dashboard</a></li>
                                 </ul>
                             </li>
                             <li><a data-toggle="collapse" data-target="#demoevent" href="#">Sektor</a>
                                 <ul id="demoevent" class="collapse dropdown-header-top">
-                                    <li><a href="inbox.html">Sektor</a></li>
+                                    <li><a href="<?= $log->baseUrl() ?>/admin/sektor">Sektor</a></li>
+                                </ul>
+                            </li>
+                            <li><a data-toggle="collapse" data-target="#demoevent" href="#">Koordinator</a>
+                                <ul id="demoevent" class="collapse dropdown-header-top">
+                                    <li><a href="<?= $log->baseUrl() ?>/admin/co">Koordinator</a></li>
                                 </ul>
                             </li>
                             <li><a data-toggle="collapse" data-target="#democrou" href="#">Maktab</a>
                                 <ul id="democrou" class="collapse dropdown-header-top">
-                                    <li><a href="animations.html">Maktab</a></li>
+                                    <li><a href="<?= $log->baseUrl() ?>/admin/maktab">Maktab</a></li>
                                 </ul>
                             </li>
                             <li><a data-toggle="collapse" data-target="#Pagemob" href="#">Pages</a>
                                 <ul id="Pagemob" class="collapse dropdown-header-top">
-                                    <li><a href="contact.html">My Profil</a>
+                                    <li><a href="<?= $log->baseUrl() ?>/admin/profil">My Profil</a>
                                     </li>
-                                    <li><a href="invoice.html">Logout</a>
+                                    <li><a href="<?= $log->baseUrl() ?>/auth/logout">Logout</a>
                                     </li>
                                 </ul>
                             </li>
@@ -46,6 +51,8 @@
                     </li>
                     <li><a data-toggle="tab" href="#mailbox"><i class="notika-icon notika-mail"></i> Sektor</a>
                     </li>
+                    <li><a data-toggle="tab" href="#koordi"><i class="notika-icon notika-support"></i> Koordinator</a>
+                    </li>
                     <li><a data-toggle="tab" href="#Interface"><i class="notika-icon notika-edit"></i> Maktab</a>
                     </li>
                     <li><a data-toggle="tab" href="#Page"><i class="notika-icon notika-support"></i> Pages</a>
@@ -54,27 +61,33 @@
                 <div class="tab-content custom-menu-content">
                     <div id="Home" class="tab-pane in active notika-tab-menu-bg animated flipInX">
                         <ul class="notika-main-menu-dropdown">
-                            <li><a href="index.html">Dashboard</a>
+                            <li><a href="<?= $log->baseUrl() ?>/admin/dash">Dashboard</a>
                             </li>
                         </ul>
                     </div>
                     <div id="mailbox" class="tab-pane notika-tab-menu-bg animated flipInX">
                         <ul class="notika-main-menu-dropdown">
-                            <li><a href="inbox.html">Sektor</a>
+                            <li><a href="<?= $log->baseUrl() ?>/admin/sektor">Sektor</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="koordi" class="tab-pane notika-tab-menu-bg animated flipInX">
+                        <ul class="notika-main-menu-dropdown">
+                            <li><a href="<?= $log->baseUrl() ?>/admin/co">Koordinator</a>
                             </li>
                         </ul>
                     </div>
                     <div id="Interface" class="tab-pane notika-tab-menu-bg animated flipInX">
                         <ul class="notika-main-menu-dropdown">
-                            <li><a href="animations.html">Maktab</a>
+                            <li><a href="<?= $log->baseUrl() ?>/admin/maktab">Maktab</a>
                             </li>
                         </ul>
                     </div>
                     <div id="Page" class="tab-pane notika-tab-menu-bg animated flipInX">
                         <ul class="notika-main-menu-dropdown">
-                            <li><a href="invoice.html">My Profil</a>
+                            <li><a href="<?= $log->baseUrl() ?>/admin/profil">My Profil</a>
                             </li>
-                            <li><a href="typography.html">Logout</a>
+                            <li><a href="<?= $log->baseUrl() ?>/auth/logout">Logout</a>
                             </li>
                         </ul>
                     </div>

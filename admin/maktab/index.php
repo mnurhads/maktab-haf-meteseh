@@ -2,9 +2,21 @@
 require_once '../../app/control.php';
 $log  = new Model();
 
-$coor   = $log->getCoor();
 $sektor = $log->getSektor();
+$maktab = $log->getMaktab();
 
+if(isset($_POST['maktab'])) {
+    $maktab['asal']     = $_POST['asal'];
+    $maktab['kota']     = $_POST['kota'];
+    $maktab['ketua']    = $_POST['ketua'];
+    $maktab['cp']       = $_POST['cp'];
+    $maktab['sektorId'] = $_POST['sektorId'];
+    $maktab['coId']     = $_POST['coId'];
+    $maktab['tuan']     = $_POST['tuan'];
+    $maktab['kontak']   = $_POST['kontak'];
+    $maktab['alamat']   = $_POST['alamat'];
+    $log->insertMaktab($maktab);
+}
 ?>
 <!doctype html>
 <html class="no-js" lang="">
@@ -68,7 +80,7 @@ $sektor = $log->getSektor();
 </head>
 
 <body>
-    <?= include_once '../layout/sidebar.php'; ?>
+  <?= include_once '../layout/sidebar.php'; ?>
 	<!-- Breadcomb area Start-->
 	<div class="breadcomb-area">
 		<div class="container">
@@ -90,64 +102,124 @@ $sektor = $log->getSektor();
 					</div>
 				</div>
 			</div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-element-list">
-                        <div class="basic-tb-hd">
-                            <h2>Tambah Data Koordinator</h2>
+      <div class="row">
+          <form action="" method="post">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-element-list">
+                      <div class="basic-tb-hd">
+                          <h2>Tambah Data Koordinator</h2>
+                      </div>
+                      <div class="row">
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-support"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="text" name="asal" class="form-control" placeholder="Asal Rombongan">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-mail"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="text" name="kota" class="form-control" placeholder="Kota">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-mail"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="text" name="ketua" class="form-control" placeholder="Ketua Rombongan">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-mail"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="text" name="cp" class="form-control" placeholder="CP Ketua">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-map"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <select name="sektorId" class="form-control" id="sektorId" onchange="warehouse()">
+                                          <option value="">--Pilih Sektor--</option>
+                                          <?php foreach($sektor as $sektor) : ?>
+                                          <option value="<?= $sektor['id']; ?>"><b>SEKTOR <?= $sektor['sektor']; ?></b></option>
+                                          <?php endforeach ?>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-next"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="text" id="koorNama" readonly class="form-control" required placeholder="Koordinator">
+                                      <input type="hidden" id="koorId" name="coId">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-support"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="text" name="tuan" class="form-control" placeholder="Tuan Rumah">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-mail"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="text" name="kontak" class="form-control" placeholder="Kontak Tuan Rumah">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-mail"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="text" name="alamat" class="form-control" placeholder="Alamat Maktab">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row" align="right">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <button type="submit" class="btn btn-primary" name="maktab"><span class="fa fa-save"></span> Simpan</button>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
-                                <div class="form-group ic-cmp-int">
-                                    <div class="form-ic-cmp">
-                                        <i class="notika-icon notika-support"></i>
-                                    </div>
-                                    <div class="nk-int-st">
-                                        <input type="text" class="form-control" placeholder="Full Name">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
-                                <div class="form-group ic-cmp-int">
-                                    <div class="form-ic-cmp">
-                                        <i class="notika-icon notika-mail"></i>
-                                    </div>
-                                    <div class="nk-int-st">
-                                        <input type="text" class="form-control" placeholder="No Telp">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group ic-cmp-int">
-                                    <div class="form-ic-cmp">
-                                        <i class="notika-icon notika-map"></i>
-                                    </div>
-                                    <div class="nk-int-st">
-                                        <select name="sektorId" class="form-control" id="">
-                                            <option value="">--Pilih Sektor--</option>
-                                            <?php foreach($sektor as $sektor) : ?>
-                                            <option value=""></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group ic-cmp-int">
-                                    <div class="form-ic-cmp">
-                                        <i class="notika-icon notika-next"></i>
-                                    </div>
-                                    <div class="nk-int-st">
-                                        <input type="text" class="form-control" placeholder="Postal Code">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                      </div>
+                  </div>
+              </div>
+          </form>
+      </div>
 		</div>
 	</div>
 	<!-- Breadcomb area End-->
@@ -165,21 +237,23 @@ $sektor = $log->getSektor();
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>No Telp</th>
+                                        <th>Asal, Kota</th>
                                         <th>Sektor</th>
-                                        <th>Created</th>
+                                        <th>Koor Maktab(WA)</th>
+                                        <th>Ketua</th>
+                                        <th>CP(WA)</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no = 1; foreach($coor as $co) : ?>
+                                    <?php $no = 1; foreach($maktab as $co) : ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><?= $co->nama; ?></td>
-                                        <td><?= $co->no_telp; ?></td>
-                                        <td><?= $co->sektor; ?></td>
-                                        <td><?= date('d-M-Y', strtotime($co->created_at)); ?></td>
+                                        <td><?= $co['asal'].','.$co['kota']; ?></td>
+                                        <td><b>SEKTOR <?= $co['sektor']; ?></b></td>
+                                        <td><?= $co['nama'].'('.$co['no_telp'].')'; ?></td>
+                                        <td><?= $co['ketua']; ?></td>
+                                        <td><?= $co['tuan'].'('.$co['kontak'].')'; ?></td>
                                         <td></td>
                                     </tr>
                                     <?php endforeach; ?>
@@ -258,5 +332,26 @@ $sektor = $log->getSektor();
     <!-- main JS
 		============================================ -->
     <script src="<?= $log->baseUrl(); ?>/assets/js/main.js"></script>
+    <script type="text/javascript">
+        function warehouse(){
+            var custId = $("#sektorId").val();
+            console.log(custId);
+            $.ajax({
+                type: 'get',
+                url: "<?= $log->baseUrl() ?>/app/api/co",
+                data: "id="+custId,
+                dataType: "json",
+            }).success(function (data) {
+                console.log(data);
+                if(data.nama != null) {
+                  $('#koorNama').val(data.nama);
+                  $('#koorId').val(data.id);
+                } else {
+                  $('#koorNama').val(data.nama);
+                  $('#koorId').val(data.id);
+                }
+            });
+        }
+    </script>
 </body>
 </html>

@@ -2,16 +2,19 @@
 require_once '../../app/control.php';
 $log  = new Model();
 
-$coor   = $log->getCoor();
 $sektor = $log->getSektor();
 
+if(isset($_POST['sektorId'])) {
+  $sektor['sektor'] = $_POST['sektor'];
+  $log->insertSektor($sektor);
+}
 ?>
 <!doctype html>
 <html class="no-js" lang="">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Koordinator | Info Maktab HAF</title>
+    <title>Sektor | Info Maktab HAF</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -82,7 +85,7 @@ $sektor = $log->getSektor();
 										<i class="notika-icon notika-windows"></i>
 									</div>
 									<div class="breadcomb-ctn">
-										<h2>Data Koordinator</h2>
+										<h2>Data Sektor</h2>
 									</div>
 								</div>
 							</div>
@@ -90,64 +93,30 @@ $sektor = $log->getSektor();
 					</div>
 				</div>
 			</div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-element-list">
-                        <div class="basic-tb-hd">
-                            <h2>Tambah Data Koordinator</h2>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
-                                <div class="form-group ic-cmp-int">
-                                    <div class="form-ic-cmp">
-                                        <i class="notika-icon notika-support"></i>
-                                    </div>
-                                    <div class="nk-int-st">
-                                        <input type="text" class="form-control" placeholder="Full Name">
-                                    </div>
+      <div class="row">
+          <form action="" method="POST">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-element-list">
+                    <div class="basic-tb-hd">
+                        <h2>Tambah Data Sektor</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group ic-cmp-int">
+                                <div class="form-ic-cmp">
+                                    <i class="notika-icon notika-support"></i>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
-                                <div class="form-group ic-cmp-int">
-                                    <div class="form-ic-cmp">
-                                        <i class="notika-icon notika-mail"></i>
-                                    </div>
-                                    <div class="nk-int-st">
-                                        <input type="text" class="form-control" placeholder="No Telp">
-                                    </div>
+                                <div class="nk-int-st">
+                                    <input type="text" name="sektor" class="form-control" placeholder="Sektor">
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group ic-cmp-int">
-                                    <div class="form-ic-cmp">
-                                        <i class="notika-icon notika-map"></i>
-                                    </div>
-                                    <div class="nk-int-st">
-                                        <select name="sektorId" class="form-control" id="">
-                                            <option value="">--Pilih Sektor--</option>
-                                            <?php foreach($sektor as $sektor) : ?>
-                                            <option value=""></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group ic-cmp-int">
-                                    <div class="form-ic-cmp">
-                                        <i class="notika-icon notika-next"></i>
-                                    </div>
-                                    <div class="nk-int-st">
-                                        <input type="text" class="form-control" placeholder="Postal Code">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <button name="sektorId" type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Simpan</button>
                     </div>
                 </div>
             </div>
+          </form>
+      </div>
 		</div>
 	</div>
 	<!-- Breadcomb area End-->
@@ -158,7 +127,7 @@ $sektor = $log->getSektor();
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="data-table-list">
                         <div class="basic-tb-hd">
-                            <h2>List Koordinator</h2>
+                            <h2>List Sektor</h2>
                         </div>
                         <div class="table-responsive">
                             <table id="data-table-basic" class="table table-striped">
@@ -166,21 +135,15 @@ $sektor = $log->getSektor();
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>No Telp</th>
-                                        <th>Sektor</th>
-                                        <th>Created</th>
-                                        <th>Action</th>
+                                        <th>Dibuat</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no = 1; foreach($coor as $co) : ?>
+                                    <?php $no = 1; foreach($sektor as $co) : ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><?= $co->nama; ?></td>
-                                        <td><?= $co->no_telp; ?></td>
-                                        <td><?= $co->sektor; ?></td>
-                                        <td><?= date('d-M-Y', strtotime($co->created_at)); ?></td>
-                                        <td></td>
+                                        <td><b>SEKTOR <?= $co['sektor']; ?></b></td>
+                                        <td><?= date('d M Y', strtotime($co['created_at'])); ?></td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>

@@ -3,8 +3,14 @@ require_once '../../app/control.php';
 $log  = new Model();
 
 $coor   = $log->getCoor();
-$sektor = $log->getSektor();
+$sektor = $log->sektorLow();
 
+if(isset($_POST['coor'])) {
+   $coo['name']     = $_POST['name'];
+   $coo['notelp']   = $_POST['notelp'];
+   $coo['sektorId'] = $_POST['sektorId'];
+   $log->insertCoo($coo);
+}
 ?>
 <!doctype html>
 <html class="no-js" lang="">
@@ -90,64 +96,61 @@ $sektor = $log->getSektor();
 					</div>
 				</div>
 			</div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-element-list">
-                        <div class="basic-tb-hd">
-                            <h2>Tambah Data Koordinator</h2>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
-                                <div class="form-group ic-cmp-int">
-                                    <div class="form-ic-cmp">
-                                        <i class="notika-icon notika-support"></i>
-                                    </div>
-                                    <div class="nk-int-st">
-                                        <input type="text" name="name" class="form-control" placeholder="Full Name">
-                                    </div>
+      <div class="row">
+          <form action="" method="post">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-element-list">
+                    <div class="basic-tb-hd">
+                        <h2>Tambah Data Koordinator</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group ic-cmp-int">
+                                <div class="form-ic-cmp">
+                                    <i class="notika-icon notika-support"></i>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
-                                <div class="form-group ic-cmp-int">
-                                    <div class="form-ic-cmp">
-                                        <i class="notika-icon notika-mail"></i>
-                                    </div>
-                                    <div class="nk-int-st">
-                                        <input type="text" name="notelp" class="form-control" placeholder="No Telp">
-                                    </div>
+                                <div class="nk-int-st">
+                                    <input type="text" name="name" class="form-control" placeholder="Full Name">
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group ic-cmp-int">
-                                    <div class="form-ic-cmp">
-                                        <i class="notika-icon notika-map"></i>
-                                    </div>
-                                    <div class="nk-int-st">
-                                        <select name="sektorId" class="form-control" id="">
-                                            <option value="">--Pilih Sektor--</option>
-                                            <?php foreach($sektor as $sektor) : ?>
-                                            <option value=""></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div>
+                        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group ic-cmp-int">
+                                <div class="form-ic-cmp">
+                                    <i class="notika-icon notika-mail"></i>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group ic-cmp-int">
-                                    <div class="form-ic-cmp">
-                                        <i class="notika-icon notika-next"></i>
-                                    </div>
-                                    <div class="nk-int-st">
-                                        <input type="text" class="form-control" placeholder="Postal Code">
-                                    </div>
+                                <div class="nk-int-st">
+                                    <input type="text" name="notelp" class="form-control" placeholder="No Telp">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group ic-cmp-int">
+                                <div class="form-ic-cmp">
+                                    <i class="notika-icon notika-map"></i>
+                                </div>
+                                <div class="nk-int-st">
+                                    <select name="sektorId" class="form-control" id="">
+                                        <option value="">--Pilih Sektor--</option>
+                                        <?php foreach($sektor as $sektor) : ?>
+                                        <option value="<?= $sektor['id'] ?>"><b>SEKTOR <?= $sektor['sektor']; ?></b></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" align="right">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <button type="submit" class="btn btn-primary" name="coor"><span class="fa fa-save"></span> Simpan</button>
+                      </div>
+                    </div>
                 </div>
             </div>
+          </form>
+      </div>
 		</div>
 	</div>
 	<!-- Breadcomb area End-->
@@ -166,7 +169,7 @@ $sektor = $log->getSektor();
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>No Telp</th>
+                                        <th>No WA</th>
                                         <th>Sektor</th>
                                         <th>Created</th>
                                         <th>Action</th>
@@ -176,11 +179,13 @@ $sektor = $log->getSektor();
                                     <?php $no = 1; foreach($coor as $co) : ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><?= $co->nama; ?></td>
-                                        <td><?= $co->no_telp; ?></td>
-                                        <td><?= $co->sektor; ?></td>
-                                        <td><?= date('d-M-Y', strtotime($co->created_at)); ?></td>
-                                        <td></td>
+                                        <td><?= $co['nama']; ?></td>
+                                        <td><?= $co['no_telp']; ?></td>
+                                        <td><b>SEKTOR <?= $co['sektor']; ?></b></td>
+                                        <td><?= date('d M Y', strtotime($co['created_at'])); ?></td>
+                                        <td>
+                                          
+                                        </td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>

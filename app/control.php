@@ -213,7 +213,7 @@ class model extends Security {
         }
     }
 
-    function getCoo() {
+    function getCoor() {
         $rows = array();
         $query = $this->query("SELECT sec.sektor, co.nama, co.no_telp, co.created_at FROM koordinators AS co INNER JOIN sektors AS sec ON co.sektor_id = sec.id ORDER BY co.created_at DESC");
         while($row = $query->fetch_assoc()) {
@@ -231,6 +231,8 @@ class model extends Security {
         $query = $this->query("INSERT INTO koordinators (nama, no_telp, sektor_id) VALUES ('$name','$notelp', '$sektorId')");
 
         if($query) {
+            $sekto = $this->query("UPDATE sektors SET status = '1' WHERE id = '$sektorId'");
+
             echo "<script>alert('Korrdinator berhadil ditambahkan') 
                         location.replace('../co')</script>";
         } else {
@@ -279,6 +281,16 @@ class model extends Security {
     function getSektor() {
         $rows = array();
         $query = $this->query("SELECT * FROM sektors ORDER BY created_at DESC");
+        while($row = $query->fetch_assoc()) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    function sektorLow() {
+        $rows = array();
+        $query = $this->query("SELECT * FROM sektors WHERE status != 1");
         while($row = $query->fetch_assoc()) {
             $rows[] = $row;
         }
@@ -337,7 +349,7 @@ class model extends Security {
 
     function getMaktab() {
         $rows = array();
-        $query = $this->query("SELECT * FROM maktabs AS mak INNER JOIN sektors AS sek ON mak.sektor_id = sek.id INNER JOIN koordinators AS co ON mak.koordinator_id = co.id ORDER BY mak.created_at DESC");
+        $query = $this->query("SELECT mak.asal_rombongan AS asal, mak.kota, sek.sektor, co.nama, co.no_telp, mak.ketua, mak.cp_ketua, mak.tuan_rumah AS tuan, mak.kontak_rumah AS kontak, mak.alamat_maktab AS alamat FROM maktabs AS mak INNER JOIN sektors AS sek ON mak.sektor_id = sek.id INNER JOIN koordinators AS co ON mak.koordinator_id = co.id ORDER BY mak.created_at DESC");
         while($row = $query->fetch_assoc()) {
             $rows[] = $row;
         }
@@ -348,17 +360,19 @@ class model extends Security {
     function insertMaktab($maktab) {
         $asal       = $this->clean_post($maktab['asal']);
         $kota       = $this->clean_post($maktab['kota']);
+        $ketua      = $this->clean_post($maktab['ketua']);
+        $cp         = $this->clean_post($maktab['cp']);
         $sektorId   = $this->clean_all($maktab['sektorId']);
         $coId       = $this->clean_all($maktab['coId']);
-        $tuan       = $this->clean_post($maktab['tuanrumah']);
+        $tuan       = $this->clean_post($maktab['tuan']);
         $kontak     = $this->clean_post($maktab['kontak']);
         $alamat     = $this->clean_post($maktab['alamat']);
 
-        $query  = $this->query("INSERT INTO maktabs (asal_rombongan, kota, sektor_id, koordinator_id, tuan_rumah, kontak_rumah, alamat_maktab) VALUES ('$asal', '$kota', '$sektorId', '$coId', '$tuan', '$kontak', '$alamat')");
+        $query  = $this->query("INSERT INTO maktabs (asal_rombongan, kota, ketua, cp_ketua, sektor_id, koordinator_id, tuan_rumah, kontak_rumah, alamat_maktab) VALUES ('$asal', '$kota', '$ketua', '$cp', '$sektorId', '$coId', '$tuan', '$kontak', '$alamat')");
 
         if($query) {
             echo "<script>alert('Maktab Berhasil Ditambahkan') 
-                        location.replace('../sektor/')</script>";
+                        location.replace('../maktab/')</script>";
         } else {
             echo '<div class="alert alert-danger alert-dismissible">
                     <a type="button" class="close text-white" data-dismiss="alert" aria-hidden="true"><span class="mdi mdi-cancel"></span></a>
