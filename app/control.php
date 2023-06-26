@@ -450,4 +450,10 @@ class model extends Security {
                 </div>';
         }
     }
+
+    // FRONTEND
+    function searchMaktab($search) {
+
+    }
+    // END FRONTEND
 }
