@@ -386,13 +386,15 @@ class model extends Security {
         $id      = $this->clean_all($upMaktab['id']);
         $asal    = $this->clean_post($upMaktab['asal']);
         $kota    = $this->clean_post($upMaktab['kota']);
+        $ketua   = $this->clean_post($upMaktab['ketua']);
+        $cp      = $this->clean_post($upMaktab['cp']);
         $sektorId= $this->clean_all($upMaktab['sektorId']);
         $coId    = $this->clean_all($upMaktab['coId']);
         $tuan    = $this->clean_post($upMaktab['tuan']);
         $kontak  = $this->clean_post($upMaktab['kontak']);
         $alamat  = $this->clean_post($upMaktab['alamat']);
 
-        $query   = $this->query("UPDATE maktabs SET asal_rombongan = '$asal', kota = '$kota', sektor_id = '$sektorId', koordinator_id = '$coId', tuan_rumah = '$tuan', kontak_rumah = '$kontak', alamat_rumah = '$alamat' WHERE id = '$id'");
+        $query   = $this->query("UPDATE maktabs SET asal_rombongan = '$asal', kota = '$kota', ketua = '$ketua', cp_ketua = '$cp', sektor_id = '$sektorId', koordinator_id = '$coId', tuan_rumah = '$tuan', kontak_rumah = '$kontak', alamat_rumah = '$alamat' WHERE id = '$id'");
 
         if($query) {
             echo "<script>alert('maktab Berhasil Diperbarui') 
