@@ -97,67 +97,68 @@ if(isset($_POST['profil'])) {
 					</div>
 				</div>
 			</div>
-            <div class="row">
-                <form action="" method="POST">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-element-list">
-                            <div class="basic-tb-hd">
-                                <!-- <h2>Tambah Data Sektor</h2> -->
-                            </div>
-                            <input type="hidden" name="userId" value="<?= $_SESSION['user_id']; ?>">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="notika-icon notika-support"></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="text" name="username" class="form-control" value="<?= $_SESSION['username']; ?>" placeholder="Username">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="notika-icon notika-support"></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="email" name="email" class="form-control" value="<?= $_SESSION['email']; ?>" placeholder="Email">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="notika-icon notika-support"></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="password" name="password" class="form-control" placeholder="Password Anda">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="notika-icon notika-support"></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="password" name="konfirm" class="form-control" placeholder="Konfirmasi Password">
-                                        </div>
-                                    </div>
-                                </div>
-                                <button name="profil" type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Simpan</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+      <div class="row">
+          <form action="" method="POST">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-element-list">
+                      <div class="basic-tb-hd">
+                          <!-- <h2>Tambah Data Sektor</h2> -->
+                      </div>
+                      <input type="hidden" name="userId" value="<?= $_SESSION['user_id']; ?>">
+                      <div class="row">
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-support"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="text" name="username" class="form-control" value="<?= $_SESSION['username']; ?>" placeholder="Username">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-support"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="email" name="email" class="form-control" value="<?= $_SESSION['email']; ?>" placeholder="Email">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-support"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="password" name="password" class="form-control" placeholder="Password Anda">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-support"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="password" name="konfirm" class="form-control" placeholder="Konfirmasi Password">
+                                  </div>
+                              </div>
+                          </div>
+                          <button name="profil" type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Simpan</button>
+                      </div>
+                  </div>
+              </div>
+          </form>
+      </div>
 		</div>
 	</div>
 	<!-- Breadcomb area End-->
     <!-- Start Footer area-->
+    <br><br><br><br><br><br>
     <?php include 'layout/footer.php'; ?>
     <!-- End Footer area-->
     <!-- jquery

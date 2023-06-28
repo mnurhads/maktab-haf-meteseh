@@ -201,15 +201,13 @@ class model extends Security {
        }
     }
 
-    function logoutWeb() {
-        session_start(); 
-        $dateOut = date("Y-m-d H:i:s"); 
-        $name = $_SESSION["username"];
-        $logout = $this->query("UPDATE users SET logout_waktu = '$dateOut' WHERE username = '$name'"); 
+    function logoutWeb($id) {
+        $dateOut = date("Y-m-d H:i:s");
+        $logout = $this->query("UPDATE users SET logout_time = '$dateOut' WHERE username = '$id'"); 
         session_destroy(); 
         setcookie('notifLogin','Berhasil Logout',time() + 10); 
         if($logout) {
-            echo "<script>alert('Anda berhasil logout ".$name."') 
+            echo "<script>alert('Anda berhasil logout') 
             location.replace('../auth')</script>";
         }
     }

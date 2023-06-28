@@ -1,7 +1,7 @@
 <?php
-error_reporting(0);
+session_start();
 require_once '../app/control.php';
 $log = new Model();
 
-$close = $log->logoutWeb();
+$close = $log->logoutWeb($_SESSION['username']);
 ?>
