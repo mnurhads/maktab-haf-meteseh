@@ -71,7 +71,7 @@ if(isset($_POST['sektorId'])) {
 </head>
 
 <body>
-    <?= include_once '../layout/sidebar.php'; ?>
+    <?php include_once '../layout/sidebar.php'; ?>
 	<!-- Breadcomb area Start-->
 	<div class="breadcomb-area">
 		<div class="container">
@@ -156,7 +156,7 @@ if(isset($_POST['sektorId'])) {
     </div>
     <!-- Data Table area End-->
     <!-- Start Footer area-->
-    <?= include_once '../layout/footer.php'; ?>
+    <?php include_once '../layout/footer.php'; ?>
     <!-- End Footer area-->
     <!-- jquery
 		============================================ -->

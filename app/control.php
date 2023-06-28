@@ -144,6 +144,7 @@ class model extends Security {
     // END 
 
     function loginWeb($login) {
+        session_start();
         $mail    = $this->clean_post($login["username"]);
         $pass    = $this->clean_post(md5($login["password"]));
         $ip      = $_SERVER['REMOTE_ADDR'];
