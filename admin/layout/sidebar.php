@@ -25,7 +25,7 @@
                                     <li><a href="<?= $log->baseUrl() ?>/admin/maktab">Maktab</a></li>
                                 </ul>
                             </li>
-                            <li><a data-toggle="collapse" data-target="#Pagemob" href="#">Pages</a>
+                            <li><a data-toggle="collapse" data-target="#Pagemob" href="#"><?= ucwords($_SESSION['username']); ?></a>
                                 <ul id="Pagemob" class="collapse dropdown-header-top">
                                     <li><a href="<?= $log->baseUrl() ?>/admin/profil">My Profil</a>
                                     </li>
@@ -55,7 +55,7 @@
                     </li>
                     <li><a data-toggle="tab" href="#Interface"><i class="notika-icon notika-edit"></i> Maktab</a>
                     </li>
-                    <li><a data-toggle="tab" href="#Page"><i class="notika-icon notika-support"></i> Pages</a>
+                    <li><a data-toggle="tab" href="#Page"><i class="notika-icon notika-support"></i> <?= ucwords($_SESSION['username']); ?></a>
                     </li>
                 </ul>
                 <div class="tab-content custom-menu-content">

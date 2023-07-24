@@ -1,9 +1,11 @@
 <?php
+session_start();
 require_once '../../app/control.php';
 $log  = new Model();
 
-$coor   = $log->getCoor();
-$sektor = $log->sektorLow();
+$coor      = $log->getCoor();
+$sektor    = $log->sektorLow();
+$allSektor = $log->getSektor();
 
 if(isset($_POST['coor'])) {
    $coo['name']     = $_POST['name'];
@@ -72,7 +74,6 @@ if(isset($_POST['coor'])) {
 		============================================ -->
     <script src="<?= $log->baseUrl(); ?>/assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-
 <body>
   <?php include_once '../layout/sidebar.php'; ?>
 	<!-- Breadcomb area Start-->
@@ -184,7 +185,74 @@ if(isset($_POST['coor'])) {
                                         <td><b>SEKTOR <?= $co['sektor']; ?></b></td>
                                         <td><?= date('d M Y', strtotime($co['created_at'])); ?></td>
                                         <td>
-                                          
+                                          <a type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModalfour<?php echo $co['id'] ?>"><i class="fa fa-pencil"></i></a>
+                                            <div class="modal animated bounce" id="myModalfour<?php echo $co['id'] ?>" role="dialog">
+                                              <div class="modal-dialog modals-default">
+                                                  <div class="modal-content">
+                                                      <?php
+                                                      if(isset($_POST['updateCo'])) {
+                                                        $upCoo['coId']      = $_POST['coId'];
+                                                        $upCoo['name1']     = $_POST['name1'];
+                                                        $upCoo['notelp1']   = $_POST['notelp1'];
+                                                        $upCoo['sektorId1'] = $_POST['sektorId1'];
+                                                        $log->updateCoo($upCoo);
+                                                      }
+                                                      ?>
+                                                      <form method="POST">
+                                                          <input type="hidden" name="coId" value="<?= $co['id']; ?>">
+                                                          <div class="modal-header">
+                                                              <a type="button" class="close" data-dismiss="modal">&times;</a>
+                                                              <h4>Edit Koordinator, SEKTOR <?= strtoupper($co['sektor']); ?></h4>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+                                                                    <div class="form-group ic-cmp-int">
+                                                                        <div class="form-ic-cmp">
+                                                                            <i class="notika-icon notika-support"></i>
+                                                                        </div>
+                                                                        <div class="nk-int-st">
+                                                                            <input type="text" name="name1" value="<?= $co['nama']; ?>" class="form-control" placeholder="Full Name">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+                                                                    <div class="form-group ic-cmp-int">
+                                                                        <div class="form-ic-cmp">
+                                                                            <i class="notika-icon notika-mail"></i>
+                                                                        </div>
+                                                                        <div class="nk-int-st">
+                                                                            <input type="text" name="notelp1" value="<?= $co['no_telp']; ?>" class="form-control" placeholder="No Telp">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                    <div class="form-group ic-cmp-int">
+                                                                        <div class="form-ic-cmp">
+                                                                            <i class="notika-icon notika-map"></i>
+                                                                        </div>
+                                                                        <div class="nk-int-st">
+                                                                            <select name="sektorId1" class="form-control">
+                                                                                <option value="">--Pilih Sektor--</option>
+                                                                                <?php foreach($allSektor as $sek) { ?>
+                                                                                <option value="<?php echo $sek['id'] ?>" <?php if($sek['id'] == $co['id']) {echo "selected";} ?>><b>SEKTOR <?php echo $sek['sektor']; ?></b></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                              <button type="submit" name="updateCo" class="btn btn-primary">Update</button>
+                                                              <a type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+                                                          </div>
+                                                      </form>
+                                                  </div>
+                                              </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>

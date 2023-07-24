@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../../app/control.php';
 $log  = new Model();
 
@@ -107,7 +108,7 @@ if(isset($_POST['maktab'])) {
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-element-list">
                       <div class="basic-tb-hd">
-                          <h2>Tambah Data Koordinator</h2>
+                          <h2>Tambah Data maktab</h2>
                       </div>
                       <div class="row">
                           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">

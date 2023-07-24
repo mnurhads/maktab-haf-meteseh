@@ -214,7 +214,7 @@ class model extends Security {
 
     function getCoor() {
         $rows = array();
-        $query = $this->query("SELECT sec.sektor, co.nama, co.no_telp, co.created_at FROM koordinators AS co INNER JOIN sektors AS sec ON co.sektor_id = sec.id ORDER BY co.created_at DESC");
+        $query = $this->query("SELECT co.id, sec.sektor, co.nama, co.no_telp, co.created_at FROM koordinators AS co INNER JOIN sektors AS sec ON co.sektor_id = sec.id ORDER BY co.created_at DESC");
         while($row = $query->fetch_assoc()) {
             $rows[] = $row;
         }
@@ -244,16 +244,16 @@ class model extends Security {
     }
 
     function updateCoo($upCoo) {
-        $id        = $this->clean_all($upCoo['id']);
-        $name      = $this->clean_post($upCoo['name']);
-        $notelp    = $this->clean_post($upCoo['notelp']);
-        $sektorId  = $this->clean_all($upCoo['sektorId']);
+        $id        = $this->clean_all($upCoo['coId']);
+        $name      = $this->clean_post($upCoo['name1']);
+        $notelp    = $this->clean_post($upCoo['notelp1']);
+        $sektorId  = $this->clean_all($upCoo['sektorId1']);
 
         $query     = $this->query("UPDATE koordinators SET nama = '$name', no_telp = '$notelp', sektor_id = '$sektorId' WHERE id = '$id'");
 
         if($query) {
             echo "<script>alert('Koordinator Berhasil Diperbarui') 
-                        location.replace('../sektor/')</script>";
+                        location.replace('../co/')</script>";
         } else {
             echo '<div class="alert alert-danger alert-dismissible">
                     <a type="button" class="close text-white" data-dismiss="alert" aria-hidden="true"><span class="mdi mdi-cancel"></span></a>
@@ -289,7 +289,7 @@ class model extends Security {
 
     function sektorLow() {
         $rows = array();
-        $query = $this->query("SELECT * FROM sektors WHERE status != 1");
+        $query = $this->query("SELECT * FROM sektors WHERE status = '0'");
         while($row = $query->fetch_assoc()) {
             $rows[] = $row;
         }
