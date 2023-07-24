@@ -206,11 +206,17 @@ body {}
 /*  2.  Header Top CSS
 /*----------------------------------------*/
 .header-top-area{
-    background:#f8f5f5;
+    background:#ffffff;
 }
 .footer-copyright-area{
 	background:#bb1515;
 }
+
+.head-logo {
+    color: #000000;
+    font-size: larger;
+}
+
 .logo-area{
 	padding:14px 0px;
 }
