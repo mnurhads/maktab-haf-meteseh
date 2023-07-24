@@ -452,6 +452,38 @@ class model extends Security {
         }
     }
 
+    function dashboardPanel() {
+        // sektor
+        $panel1 = $this->query("SELECT COUNT(id) AS jmlSektor FROM sektors");
+        $sektor = $panel1->fetch_assoc();
+        // maktab
+        $panel2 = $this->query("SELECT COUNT(id) AS jmlMaktab FROM maktabs");
+        $maktab = $panel2->fetch_assoc();
+        // rombongan laki
+        $panel3 = $this->query("SELECT SUM(rombongan_laki) AS putra FROM maktabs");
+        $lk     = $panel3->fetch_assoc();
+        // rombongan putri
+        $panel4 = $this->query("SELECT SUM(rombongan_pr) AS putri FROM maktabs");
+        $pr     = $panel4->fetch_assoc();
+        // rombongan all
+        $panel5 = $this->query("SELECT SUM(rombongan_total) AS total FROM maktabs");
+        $total  = $panel5->fetch_assoc();
+
+        $datas  = array(
+            'sektor' => $sektor['jmlSektor'],
+            'maktab' => $maktab['jmlMaktab'],
+            'putra'  => $lk['putra'],
+            'putri'  => $pr['putri'],
+            'total'  => $total['total'],
+        );
+
+        return $datas;
+    }
+
+    function dashboardChart() {
+        
+    }
+
     // FRONTEND
     function searchMaktab($search) {
 
