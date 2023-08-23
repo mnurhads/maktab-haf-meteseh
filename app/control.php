@@ -486,7 +486,14 @@ class model extends Security {
 
     // FRONTEND
     function searchMaktab($search) {
+        $pencarian = $search;
+        $rows = array();
+        $query = $this->query("SELECT m.id, m.asal_rombongan, m.kota, m.ketua, s.sektor, k.nama, k.no_telp, m.tuan_rumah, m.kontak_rumah, m.alamat_maktab FROM `maktabs` AS m INNER JOIN sektors AS s ON m.sektor_id = s.id INNER JOIN koordinators AS k ON m.koordinator_id = k.id WHERE m.asal_rombongan LIKE '%$pencarian' OR m.kota LIKE '%$pencarian'");
+        while($row = $query->fetch_assoc()) {
+            $rows[] = $row;
+        }
 
+        return $rows;
     }
     // END FRONTEND
 }
