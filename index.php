@@ -18,7 +18,7 @@ $log = new Model();
     <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #f9f9f9;">
         <div class="container-fluid">
         <a class="navbar-brand" href="">
-            <img src="assets/img/khidmah.png" alt="Bootstrap" width="60px" height="50px">
+            <img src="assets/img/khidmah.png" alt="Bootstrap" width="50px" height="50px">
             <span><b>HAF Meteseh 2023</b></span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
