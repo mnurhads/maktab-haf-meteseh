@@ -25,6 +25,22 @@ class model extends Security {
        return $ver;
     }
 
+    function phone_number_format($number=0, $jml=4, $op='-'){
+        $data=''; $i=0;
+        foreach(str_split($number) as $key => $value) {
+            if($i == $jml) {
+                $tes = $op; $i=0;
+            } else {
+                $tes = '';
+            }
+            
+            $data .= $tes.$value;
+            $i++;
+        }
+        
+        return $data;
+    }
+
     function baseUrl() {
         $base = "http://localhost/maktab-haf";
 
@@ -214,7 +230,7 @@ class model extends Security {
 
     function getCoor() {
         $rows = array();
-        $query = $this->query("SELECT co.id, sec.sektor, co.nama, co.no_telp, co.created_at FROM koordinators AS co INNER JOIN sektors AS sec ON co.sektor_id = sec.id ORDER BY co.created_at DESC");
+        $query = $this->query("SELECT co.id, sec.sektor, co.nama, co.no_telp, co.created_at FROM koordinators AS co INNER JOIN sektors AS sec ON co.sektor_id = sec.id ORDER BY sec.sektor ASC");
         while($row = $query->fetch_assoc()) {
             $rows[] = $row;
         }
