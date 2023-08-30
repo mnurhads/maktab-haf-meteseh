@@ -52,14 +52,14 @@ $coor        = $log->getCoor();
                     </div>
                 </form><br>
                 <p>
-                    <a href="" class="btn btn-warning"><b class="text-white">Lihat Peta Maktab</b></a>
-                    <a href="#demo-modal" class="btn btn-warning"><b class="text-white">Informasi</b></a>
+                    <a href="#peta-maktab" class="btn btn-warning"><b class="text-white">Lihat Peta Maktab</b></a>
+                    <a href="#informasi" class="btn btn-warning"><b class="text-white">Informasi</b></a>
                 </p>
             </div>
         </div>
     </div>
     <!-- modal informasi -->
-    <div id="demo-modal" class="modal">
+    <div id="informasi" class="modal">
         <div class="modal__content">
             <h5>Bantuan Informasi</h5>
             <hr>
@@ -87,6 +87,25 @@ $coor        = $log->getCoor();
         </div>
     </div>
     <!-- end modal -->
+    <!-- Modal maktab peta -->
+    <div id="peta-maktab" class="modal">
+        <div class="modal__content_set">
+            <h5>Peta Maktab</h5>
+            <hr>
+            <p style="font-size:0.9rem;">Informasi Peta Maktab</p>
+            <div class="card">
+                <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1NMFczG5QZb4xm2FLJR2iqvmPaH3uI_8&ehbc=2E312F" width="640" height="480"></iframe>
+            </div><br>
+            <div class="modal__footer">
+                <p style="font-size:0.7rem;">
+                    <svg style="width: 13px;" aria-hidden="true" class="mr-2 h-6 w-6" focusable="false" data-prefix="far" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm107.244-255.2c0 67.052-72.421 68.084-72.421 92.863V300c0 6.627-5.373 12-12 12h-45.647c-6.627 0-12-5.373-12-12v-8.659c0-35.745 27.1-50.034 47.579-61.516 17.561-9.845 28.324-16.541 28.324-29.579 0-17.246-21.999-28.693-39.784-28.693-23.189 0-33.894 10.977-48.942 29.969-4.057 5.12-11.46 6.071-16.666 2.124l-27.824-21.098c-5.107-3.872-6.251-11.066-2.644-16.363C184.846 131.491 214.94 112 261.794 112c49.071 0 101.45 38.304 101.45 88.8zM298 368c0 23.159-18.841 42-42 42s-42-18.841-42-42 18.841-42 42-42 42 18.841 42 42z"></path></svg> 
+                    Peta Maktab ini disesuaikan dengan data informasi maktab yang sudah didaftarkan disitem
+                </p>
+            </div>
+            <a href="#" class="modal__close">&times;</a>
+        </div>
+    </div>
+    <!-- End -->
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

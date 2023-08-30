@@ -62,6 +62,15 @@
     padding: 1em 2em;
   }
   
+  .modal__content_set {
+    border-radius: 4px;
+    position: relative;
+    width: 700px;
+    /* max-width: 90%; */
+    background: #fff;
+    padding: 1em 2em;
+  }
+
   .modal__footer {
     /* text-align: justify; */
     a {
