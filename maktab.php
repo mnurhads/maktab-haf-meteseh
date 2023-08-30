@@ -28,7 +28,7 @@ $log = new Model();
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <a href="#" class="btn btn-outline-warning my-2 my-sm-0">Peta Maktab</a>
+            <a href="<?= $log->baseUrl(); ?>/assets/img/peta-maktab.jpg" target="_blank"  class="btn btn-outline-warning my-2 my-sm-0">Peta Offline Maktab</a>
         </div>
     </nav>
     <br><br><br><br>
