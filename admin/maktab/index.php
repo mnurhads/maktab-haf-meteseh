@@ -7,6 +7,7 @@ $sektor = $log->getSektor();
 $maktab = $log->getMaktab();
 
 if(isset($_POST['maktab'])) {
+    $maktab['kode']     = $_POST['kode'];
     $maktab['asal']     = $_POST['asal'];
     $maktab['kota']     = $_POST['kota'];
     $maktab['ketua']    = $_POST['ketua'];
@@ -24,7 +25,7 @@ if(isset($_POST['maktab'])) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Koordinator | Info Maktab HAF</title>
+    <title>Maktab | Info Maktab HAF</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -95,7 +96,7 @@ if(isset($_POST['maktab'])) {
 										<i class="notika-icon notika-windows"></i>
 									</div>
 									<div class="breadcomb-ctn">
-										<h2>Data Koordinator</h2>
+										<h2>Data Maktab</h2>
 									</div>
 								</div>
 							</div>
@@ -111,13 +112,23 @@ if(isset($_POST['maktab'])) {
                           <h2>Tambah Data maktab</h2>
                       </div>
                       <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                              <div class="form-group ic-cmp-int">
+                                  <div class="form-ic-cmp">
+                                      <i class="notika-icon notika-support"></i>
+                                  </div>
+                                  <div class="nk-int-st">
+                                      <input type="text" name="kode" required class="form-control" placeholder="Kode">
+                                  </div>
+                              </div>
+                          </div>
                           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                               <div class="form-group ic-cmp-int">
                                   <div class="form-ic-cmp">
                                       <i class="notika-icon notika-support"></i>
                                   </div>
                                   <div class="nk-int-st">
-                                      <input type="text" name="asal" class="form-control" placeholder="Asal Rombongan">
+                                      <input type="text" name="asal" required class="form-control" placeholder="Asal Rombongan">
                                   </div>
                               </div>
                           </div>
@@ -127,7 +138,7 @@ if(isset($_POST['maktab'])) {
                                       <i class="notika-icon notika-mail"></i>
                                   </div>
                                   <div class="nk-int-st">
-                                      <input type="text" name="kota" class="form-control" placeholder="Kota">
+                                      <input type="text" name="kota" required class="form-control" placeholder="Kota">
                                   </div>
                               </div>
                           </div>
@@ -137,7 +148,7 @@ if(isset($_POST['maktab'])) {
                                       <i class="notika-icon notika-mail"></i>
                                   </div>
                                   <div class="nk-int-st">
-                                      <input type="text" name="ketua" class="form-control" placeholder="Ketua Rombongan">
+                                      <input type="text" name="ketua" required class="form-control" placeholder="Ketua Rombongan">
                                   </div>
                               </div>
                           </div>
@@ -159,7 +170,7 @@ if(isset($_POST['maktab'])) {
                                       <i class="notika-icon notika-map"></i>
                                   </div>
                                   <div class="nk-int-st">
-                                      <select name="sektorId" class="form-control" id="sektorId" onchange="warehouse()">
+                                      <select name="sektorId" required class="form-control" id="sektorId" onchange="warehouse()">
                                           <option value="">--Pilih Sektor--</option>
                                           <?php foreach($sektor as $sektor) : ?>
                                           <option value="<?= $sektor['id']; ?>"><b>SEKTOR <?= $sektor['sektor']; ?></b></option>
@@ -174,7 +185,7 @@ if(isset($_POST['maktab'])) {
                                       <i class="notika-icon notika-next"></i>
                                   </div>
                                   <div class="nk-int-st">
-                                      <input type="text" id="koorNama" readonly class="form-control" required placeholder="Koordinator">
+                                      <input type="text" id="koorNama" readonly class="form-control" placeholder="Koordinator">
                                       <input type="hidden" id="koorId" name="coId">
                                   </div>
                               </div>
@@ -231,18 +242,20 @@ if(isset($_POST['maktab'])) {
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="data-table-list">
                         <div class="basic-tb-hd">
-                            <h2>List Koordinator</h2>
+                            <h2>List Maktab</h2>
                         </div>
                         <div class="table-responsive">
                             <table id="data-table-basic" class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kode</th>
                                         <th>Asal, Kota</th>
                                         <th>Sektor</th>
                                         <th>Koor Maktab(WA)</th>
                                         <th>Ketua</th>
                                         <th>CP(WA)</th>
+                                        <th>Alamat</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -250,12 +263,19 @@ if(isset($_POST['maktab'])) {
                                     <?php $no = 1; foreach($maktab as $co) : ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
+                                        <td><?= $co['kode']; ?></td>
                                         <td><?= $co['asal'].','.$co['kota']; ?></td>
                                         <td><b>SEKTOR <?= $co['sektor']; ?></b></td>
                                         <td><?= $co['nama'].'('.$co['no_telp'].')'; ?></td>
                                         <td><?= $co['ketua']; ?></td>
                                         <td><?= $co['tuan'].'('.$co['kontak'].')'; ?></td>
-                                        <td></td>
+                                        <td><?= $co['alamat']; ?></td>
+                                        <td>
+                                            <form action="delete?kode=<?= $co['id']; ?>" method="POST">
+                                                <a href="update?kode=<?= $co['id']; ?>" class="btn btn-warning" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                                                <button type="submit"  onclick="return confirm('Anda yakin akan menghapus Data Maktab Ini?');" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -313,9 +333,6 @@ if(isset($_POST['maktab'])) {
     <script src="<?= $log->baseUrl(); ?>/assets/js/knob/jquery.knob.js"></script>
     <script src="<?= $log->baseUrl(); ?>/assets/js/knob/jquery.appear.js"></script>
     <script src="<?= $log->baseUrl(); ?>/assets/js/knob/knob-active.js"></script>
-    <!--  Chat JS
-		============================================ -->
-    <script src="<?= $log->baseUrl(); ?>/assets/js/chat/jquery.chat.js"></script>
     <!--  todo JS
 		============================================ -->
     <script src="<?= $log->baseUrl(); ?>/assets/js/todo/jquery.todo.js"></script>
@@ -339,7 +356,7 @@ if(isset($_POST['maktab'])) {
             console.log(custId);
             $.ajax({
                 type: 'get',
-                url: "<?= $log->baseUrl() ?>/app/api/co",
+                url: "<?= $log->baseUrl() ?>/app/api/koor",
                 data: "id="+custId,
                 dataType: "json",
             }).success(function (data) {

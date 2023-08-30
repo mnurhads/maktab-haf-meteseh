@@ -364,7 +364,7 @@ class model extends Security {
 
     function getMaktab() {
         $rows = array();
-        $query = $this->query("SELECT mak.asal_rombongan AS asal, mak.kota, sek.sektor, co.nama, co.no_telp, mak.ketua, mak.cp_ketua, mak.tuan_rumah AS tuan, mak.kontak_rumah AS kontak, mak.alamat_maktab AS alamat FROM maktabs AS mak INNER JOIN sektors AS sek ON mak.sektor_id = sek.id INNER JOIN koordinators AS co ON mak.koordinator_id = co.id ORDER BY mak.created_at DESC");
+        $query = $this->query("SELECT mak.id, mak.kode, mak.asal_rombongan AS asal, mak.kota, mak.sektor_id, sek.sektor, co.nama, co.no_telp, mak.ketua, mak.cp_ketua, mak.tuan_rumah AS tuan, mak.kontak_rumah AS kontak, mak.alamat_maktab AS alamat FROM maktabs AS mak INNER JOIN sektors AS sek ON mak.sektor_id = sek.id INNER JOIN koordinators AS co ON mak.koordinator_id = co.id ORDER BY mak.created_at DESC");
         while($row = $query->fetch_assoc()) {
             $rows[] = $row;
         }
@@ -372,7 +372,15 @@ class model extends Security {
         return $rows;
     }
 
+    function editMaktab($kode) {
+        $query = $this->query("SELECT mak.id, mak.kode, mak.asal_rombongan AS asal, mak.kota, mak.sektor_id, sek.sektor, co.id AS coId, co.nama, co.no_telp, mak.ketua, mak.cp_ketua, mak.tuan_rumah AS tuan, mak.kontak_rumah AS kontak, mak.alamat_maktab AS alamat FROM maktabs AS mak INNER JOIN sektors AS sek ON mak.sektor_id = sek.id INNER JOIN koordinators AS co ON mak.koordinator_id = co.id WHERE mak.id = '$kode'");
+        $rows  = $query->fetch_assoc();
+
+        return $rows;
+    }
+
     function insertMaktab($maktab) {
+        $kode       = $this->clean_post($maktab['kode']);
         $asal       = $this->clean_post($maktab['asal']);
         $kota       = $this->clean_post($maktab['kota']);
         $ketua      = $this->clean_post($maktab['ketua']);
@@ -383,33 +391,42 @@ class model extends Security {
         $kontak     = $this->clean_post($maktab['kontak']);
         $alamat     = $this->clean_post($maktab['alamat']);
 
-        $query  = $this->query("INSERT INTO maktabs (asal_rombongan, kota, ketua, cp_ketua, sektor_id, koordinator_id, tuan_rumah, kontak_rumah, alamat_maktab) VALUES ('$asal', '$kota', '$ketua', '$cp', '$sektorId', '$coId', '$tuan', '$kontak', '$alamat')");
+        // cek kode
+        $dataKode = $this->query("SELECT kode FROM maktabs WHERE kode = '$kode'");
+        //$kodes    = $dataKode->fetch_assoc(); 
 
-        if($query) {
-            echo "<script>alert('Maktab Berhasil Ditambahkan') 
-                        location.replace('../maktab/')</script>";
+        if(mysqli_num_rows($dataKode) > 1) {
+            echo "<script>alert('Kode Maktab Sudah Tersedia') 
+                            location.replace('../maktab/')</script>";
         } else {
-            echo '<div class="alert alert-danger alert-dismissible">
-                    <a type="button" class="close text-white" data-dismiss="alert" aria-hidden="true"><span class="mdi mdi-cancel"></span></a>
-                    <h4><i class="icon fa fa-ban"></i> Warning!</h4>
-                    Maktab gagal di tambahkan
-                  </div>';
-        } 
+            $query  = $this->query("INSERT INTO maktabs (kode, asal_rombongan, kota, ketua, cp_ketua, sektor_id, koordinator_id, tuan_rumah, kontak_rumah, alamat_maktab) VALUES ('$kode', '$asal', '$kota', '$ketua', '$cp', '$sektorId', '$coId', '$tuan', '$kontak', '$alamat')");
+
+            if($query) {
+                echo "<script>alert('Maktab Berhasil Ditambahkan') 
+                            location.replace('../maktab/')</script>";
+            } else {
+                echo '<div class="alert alert-danger alert-dismissible">
+                        <a type="button" class="close text-white" data-dismiss="alert" aria-hidden="true"><span class="mdi mdi-cancel"></span></a>
+                        <h4><i class="icon fa fa-ban"></i> Warning!</h4>
+                        Maktab gagal di tambahkan
+                    </div>';
+            } 
+        }
     }
 
     function updateMaktab($upMaktab) {
         $id      = $this->clean_all($upMaktab['id']);
-        $asal    = $this->clean_post($upMaktab['asal']);
-        $kota    = $this->clean_post($upMaktab['kota']);
-        $ketua   = $this->clean_post($upMaktab['ketua']);
-        $cp      = $this->clean_post($upMaktab['cp']);
+        $asal    = $this->clean_post($upMaktab['asals']);
+        $kota    = $this->clean_post($upMaktab['kotas']);
+        $ketua   = $this->clean_post($upMaktab['ketuas']);
+        $cp      = $this->clean_post($upMaktab['cps']);
         $sektorId= $this->clean_all($upMaktab['sektorId']);
         $coId    = $this->clean_all($upMaktab['coId']);
-        $tuan    = $this->clean_post($upMaktab['tuan']);
-        $kontak  = $this->clean_post($upMaktab['kontak']);
-        $alamat  = $this->clean_post($upMaktab['alamat']);
+        $tuan    = $this->clean_post($upMaktab['tuans']);
+        $kontak  = $this->clean_post($upMaktab['kontaks']);
+        $alamat  = $this->clean_post($upMaktab['alamats']);
 
-        $query   = $this->query("UPDATE maktabs SET asal_rombongan = '$asal', kota = '$kota', ketua = '$ketua', cp_ketua = '$cp', sektor_id = '$sektorId', koordinator_id = '$coId', tuan_rumah = '$tuan', kontak_rumah = '$kontak', alamat_rumah = '$alamat' WHERE id = '$id'");
+        $query   = $this->query("UPDATE maktabs SET asal_rombongan = '$asal', kota = '$kota', ketua = '$ketua', cp_ketua = '$cp', sektor_id = '$sektorId', koordinator_id = '$coId', tuan_rumah = '$tuan', kontak_rumah = '$kontak', alamat_maktab = '$alamat' WHERE id = '$id'");
 
         if($query) {
             echo "<script>alert('maktab Berhasil Diperbarui') 
@@ -428,7 +445,7 @@ class model extends Security {
 
         if($query) {
             echo "<script>alert('Maktab berhadil dihapus') 
-                        location.replace('../sektor/')</script>";
+                        location.replace('../maktab/')</script>";
         } else {
             echo '<div class="alert alert-danger alert-dismissible">
                     <a type="button" class="close text-white" data-dismiss="alert" aria-hidden="true"><span class="mdi mdi-cancel"></span></a>

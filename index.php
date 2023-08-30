@@ -28,7 +28,7 @@ $coor        = $log->getCoor();
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <a href="<?= $log->baseUrl(); ?>/assets/img/peta-maktab.jpg" target="_blank" class="btn btn-outline-warning my-2 my-sm-0">Peta Offline Maktab</a>
+            <a href="#peta-maktab" class="btn btn-outline-warning my-2 my-sm-0">Peta Offline Maktab</a>
         </div>
     </nav>
     <br><br><br><br>
@@ -52,7 +52,7 @@ $coor        = $log->getCoor();
                     </div>
                 </form><br>
                 <p>
-                    <a href="#peta-maktab" class="btn btn-warning"><b class="text-white">Lihat Peta Maktab</b></a>
+                    <a href="#peta-maktab" class="btn btn-warning"><b class="text-white">Peta Maktab</b></a>
                     <a href="#informasi" class="btn btn-warning"><b class="text-white">Informasi</b></a>
                 </p>
             </div>
@@ -94,7 +94,9 @@ $coor        = $log->getCoor();
             <hr>
             <p style="font-size:0.9rem;">Informasi Peta Maktab</p>
             <div class="card">
-                <iframe src="https://www.google.com/maps/d/embed?mid=1NMFczG5QZb4xm2FLJR2iqvmPaH3uI_8&ehbc=2E312F" width="640" height="480"></iframe>
+                <div class="responsive-map-container">
+                    <iframe src="https://www.google.com/maps/d/embed?mid=1NMFczG5QZb4xm2FLJR2iqvmPaH3uI_8&ehbc=2E312F" width="500" height="480" frameborder="0"></iframe>
+                </div>
             </div><br>
             <div class="modal__footer">
                 <p style="font-size:0.7rem;">
